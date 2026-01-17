@@ -239,7 +239,6 @@ public class UIManager : MonoBehaviour {
     {
         GameObject go = GetPanel(UIPanelType.PanelTutorial);
         go.SetActive(false);
-        AdsManager.Instance.ShowInterstitial();
     }
 
     public void ShowPanelHint(ItemType itemType)
@@ -304,8 +303,6 @@ public class UIManager : MonoBehaviour {
         isHasPopupOnScene = true;
         GameObject go = GetPanel(UIPanelType.PanelSpin);
         go.SetActive(true);
-        AdsManager.Instance.ShowInterstitial();
-
     }
     public void ClosePanelSpin()
     {
@@ -324,8 +321,6 @@ public class UIManager : MonoBehaviour {
         isHasPopupOnScene = false;
         GameObject go = GetPanel(UIPanelType.PanelDailyReward);
         go.SetActive(false);
-        AdsManager.Instance.ShowInterstitial();
-
     }
 
     public void ShowPanelItemsReward()
@@ -398,8 +393,6 @@ public class UIManager : MonoBehaviour {
         isHasPopupOnScene = true;
         GameObject go = GetPanel(UIPanelType.PanelSetting);
         go.SetActive(true);
-        AdsManager.Instance.ShowInterstitial();
-
     }
     public void ClosePanelSetting()
     {
@@ -419,8 +412,6 @@ public class UIManager : MonoBehaviour {
         isHasPopupOnScene = false;
         GameObject go = GetPanel(UIPanelType.PanelDailyQuest);
         go.SetActive(false);
-        AdsManager.Instance.ShowInterstitial();
-
     }
 
     public void ShowPanelDecorations()
@@ -476,8 +467,6 @@ public class UIManager : MonoBehaviour {
         isHasPopupOnScene = false;
         GameObject go = GetPanel(UIPanelType.PanelCakeReward);
         go.SetActive(false);
-        AdsManager.Instance.ShowInterstitial();
-
     }
     PanelLevelComplete panelLevelComplete;
     public void ShowPanelLevelComplete(bool isWinGame)
@@ -493,8 +482,6 @@ public class UIManager : MonoBehaviour {
         isHasPopupOnScene = false;
         GameObject go = GetPanel(UIPanelType.PanelLevelComplete);
         go.SetActive(false);
-        AdsManager.Instance.ShowInterstitial();
-
     }
 
     public void ShowPanelLoading() {
@@ -580,8 +567,6 @@ public class UIManager : MonoBehaviour {
         isHasPopupOnScene = false;
         GameObject go = GetPanel(UIPanelType.PanelSelectReward);
         go.SetActive(false);
-        AdsManager.Instance.ShowInterstitial();
-
     }
 
     public void ShowPanelQuickTimeEvent() {
@@ -595,8 +580,6 @@ public class UIManager : MonoBehaviour {
         isHasPopupOnScene = false;
         GameObject go = GetPanel(UIPanelType.PanelQuickTimeEvent);
         go.SetActive(false);
-        AdsManager.Instance.ShowInterstitial();
-
     }
 
     public void ShowPanelPreAds() {
