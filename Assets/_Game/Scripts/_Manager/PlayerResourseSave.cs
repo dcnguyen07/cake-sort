@@ -148,7 +148,6 @@ public class PlayerResourseSave : SaveBase
             IsMarkChangeData();
             SaveData();
         }
-        UIManager.instance.panelTotal.CheckNoti();
     }
 
     public bool IsHasDailyReward()
@@ -196,7 +195,6 @@ public class PlayerResourseSave : SaveBase
         lastDay = DateTime.Now.ToString();
         IsMarkChangeData();
         SaveData();
-        UIManager.instance.panelTotal.CheckNoti();
     }
 
     public void AddItem(ItemData item)

@@ -21,7 +21,7 @@ public class CakeFullAnimation : MonoBehaviour
         sequence.OnComplete(() => {
             CoinEffect coinEffect = GameManager.Instance.objectPooling.GetCoinEffect();
             coinEffect.transform.position = Camera.main.WorldToScreenPoint(transform.position);
-            coinEffect.Move(panelTotal.GetCoinTrs());
+            // coinEffect.Move(panelTotal.GetCoinTrs());
 
             EffectMove effectMove = GameManager.Instance.objectPooling.GetEffectMove();
             effectMove.gameObject.SetActive(true);

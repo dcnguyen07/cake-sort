@@ -38,17 +38,6 @@ public class UIManager : MonoBehaviour {
     // Start is called before the first frame update
     void Awake() {
         instance = this;
-        if (ProfileManager.Instance.versionStatus == VersionStatus.Cheat)
-        {
-            objCheat.SetActive(true);
-            btnCheat.onClick.AddListener(ShowPanelCheat);
-            btnTurnOffUI.onClick.AddListener(OffUI);
-            btnShowUI.onClick.AddListener(ShowUI);
-        }
-        else
-        {
-            objCheat.SetActive(false);
-        }
     }
 
     public void TurnBlock(bool active) {
@@ -86,11 +75,11 @@ public class UIManager : MonoBehaviour {
     {
         //uiPooling.FirstPooling();
         //StartCoroutine(WaitToSpawnUIPool());
-        if(ingameDebugConsole != null)
-        ingameDebugConsole.SetActive(ProfileManager.Instance.IsShowDebug());
+        // if(ingameDebugConsole != null)
+        // ingameDebugConsole.SetActive(ProfileManager.Instance.IsShowDebug());
         ShowPanelTotal();
-        ShowPanelLoading();
-        UnityEngine.iOS.Device.RequestStoreReview();
+        // ShowPanelLoading();
+        // UnityEngine.iOS.Device.RequestStoreReview();
 
     }
 
@@ -207,15 +196,6 @@ public class UIManager : MonoBehaviour {
             return panel;
         }
         return listPanel[type];
-    }
-
-    public void OpenBlockAll() {
-        panelTotal.OpenObjBlockAll();
-    }
-
-    public void CloseBlockAll()
-    {
-        panelTotal.CloseObjBlockAll();
     }
 
     public void ShowPanelBase()

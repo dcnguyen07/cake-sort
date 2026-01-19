@@ -81,7 +81,6 @@ public class QuestDataSave : SaveBase
         rewardEarned.Add(id);
         IsMarkChangeData();
         SaveData();
-        UIManager.instance.panelTotal.CheckNoti();
     }
 
     public bool CheckCanEarnQuest(int id, float star) {
@@ -141,7 +140,6 @@ public class QuestDataSave : SaveBase
         IsMarkChangeData();
         SaveData();
         EventManager.TriggerEvent(EventName.ChangeStarDailyQuest.ToString());
-        UIManager.instance.panelTotal.CheckNoti();
     }
 
     public void AddProgress(float amount, QuestType questType) {
@@ -163,7 +161,6 @@ public class QuestDataSave : SaveBase
         }
         IsMarkChangeData();
         SaveData();
-        UIManager.instance.panelTotal.CheckNoti();
     }
 
     public bool CheckShowNoticeQuest() {

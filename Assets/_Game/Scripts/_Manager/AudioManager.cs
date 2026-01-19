@@ -20,8 +20,7 @@ public class AudioManager : MonoBehaviour
     }
     public void PlayAudio()
     {
-        ChangeMusicState(ProfileManager.Instance.GetSettingStatus(SettingId.Music));
-        ChangeSoundState(ProfileManager.Instance.GetSettingStatus(SettingId.Sound));
+       
     }
 
     public void ChangeMusicState(bool play)
@@ -41,11 +40,8 @@ public class AudioManager : MonoBehaviour
     }
     public void PlayMusic()
     {
-        if (ProfileManager.Instance.GetSettingStatus(SettingId.Music))
-        {
-            if (!_SourceBG.isPlaying) _SourceBG.Play();
-            _SourceBG.volume = 1;
-        }
+        if (!_SourceBG.isPlaying) _SourceBG.Play();
+        _SourceBG.volume = 1;
     }
 
     public void ChangeSoundState(bool play)
@@ -89,7 +85,6 @@ public class AudioManager : MonoBehaviour
 
     public void PlaySoundEffect(SoundId soundId, float volume = 1f)
     {
-        if (!ProfileManager.Instance.GetSettingStatus(SettingId.Sound)) return;
         AudioClip audioClip = GetAudioClip(soundId);
         if (audioClip != null)
         {

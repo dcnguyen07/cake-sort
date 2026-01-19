@@ -133,7 +133,6 @@ public class PanelBakery : UIPanel
     void ClosePanel()
     {
         UIManager.instance.ClosePanelBakery();
-        UIManager.instance.ShowPanelPlayGame();
         UIManager.instance.panelTotal.ShowMainSceneContent(true);
     }
 

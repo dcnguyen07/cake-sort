@@ -119,7 +119,6 @@ public class PanelPlayGame : UIPanel
     {
         GameManager.Instance.audioManager.PlaySoundEffect(SoundId.SFX_UIButton);
         UIAnimationController.BtnAnimZoomBasic(x2BoosterBtn.transform, .1f);
-        UIManager.instance.panelTotal.ShowConfirm(ShowX2BoosterAds, ConstantValue.STR_ShowX2BoosterAds);
     }
 
     void ShowX2BoosterAds()
@@ -141,7 +140,6 @@ public class PanelPlayGame : UIPanel
     {
         GameManager.Instance.audioManager.PlaySoundEffect(SoundId.SFX_UIButton);
         UIAnimationController.BtnAnimZoomBasic(coinBoosterBtn.transform, .1f);
-        UIManager.instance.panelTotal.ShowConfirm(ShowCoinBoosterAds, ConstantValue.STR_ShowCoinBoosterAds);
     }
     void ShowCoinBoosterAds()
     {

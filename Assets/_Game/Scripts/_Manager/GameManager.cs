@@ -3,6 +3,7 @@ using DG.Tweening.Core.Easing;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -21,23 +22,24 @@ public class GameManager : Singleton<GameManager>
     public LightManager lightManager;
     public QuestManager questManager;
     public QuickTimeEventManager quickTimeEventManager;
-    [field: SerializeField] public TutorialManager tutorialManager { get; private set; }
     public List<ItemData> rewardItems;
     private void Start()
     {
         cameraManager.ShowARoom(0);
-        AddTempName();
-        ShowCollapsibleBanner();
+        // Play();
+    }
+
+    public void Play()
+    {
+        audioManager.PlaySoundEffect(SoundId.SFX_UIButton);
+        cameraManager.FirstCamera();
+        cameraManager.OpenMainCamera();
+        PlayGame();
     }
     public void PlayGame()
     {
-        UIManager.instance.ShowPanelPlayGame();
         cakeManager.PlayGame();
         playing = true;
-        if(ProfileManager.Instance.playerData.playerResourseSave.currentLevel == 0 )
-        {
-            tutorialManager.PlayTutorial();
-        }
     }
 
     public void BackToMenu()

@@ -364,16 +364,6 @@ public class Cake : MonoBehaviour
       
     }
 
-    bool CheckPickable()
-    {
-        if(ProfileManager.Instance.playerData.playerResourseSave.currentLevel == 0)
-        {
-            return myGroupCake.groupCakeIndex ==
-                GameManager.Instance.tutorialManager.tutCakesId[GameManager.Instance.tutorialManager.currentTutIndex - 1];
-        }
-        return true;
-    }
-
     private void OnMouseDown()
     {
         if (EventSystem.current.IsPointerOverGameObject() || EventSystem.current.IsPointerOverGameObject(0) || UIManager.instance.isHasPopupOnScene)
@@ -383,8 +373,6 @@ public class Cake : MonoBehaviour
             if (EventSystem.current.IsPointerOverGameObject(0))
                 return;
         }
-        if (!CheckPickable()) return;
-        //Debug.Log("On click");
         if (onChooseRevive) {
             centerRevive = true;
             GameManager.Instance.itemManager.OnUsingItem();
@@ -578,10 +566,6 @@ public class Cake : MonoBehaviour
         //    transform.DOScale(Vector3.one, .2f).SetDelay(.2f);
 
         //});
-        if (ProfileManager.Instance.playerData.playerResourseSave.currentLevel == 0)
-        {
-            GameManager.Instance.tutorialManager.PlayTutorial();
-        }
     }
 
     public void GroupDropFail() {
@@ -901,7 +885,7 @@ public class Cake : MonoBehaviour
         int cakeLevel = ProfileManager.Instance.playerData.cakeSaveData.GetOwnedCakeLevel(pieces[0].cakeID);
         CoinEffect coinEffect = GameManager.Instance.objectPooling.GetCoinEffect();
         coinEffect.transform.position = Camera.main.WorldToScreenPoint(transform.position);
-        coinEffect.Move(panelTotal.GetCoinTrs());
+        // coinEffect.Move(panelTotal.GetCoinTrs());
 
         EffectMove effectMove = GameManager.Instance.objectPooling.GetEffectMove();
         effectMove.gameObject.SetActive(true);

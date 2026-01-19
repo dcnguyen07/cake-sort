@@ -29,13 +29,11 @@ public class PanelUsingItem : UIPanel
         txtDescript.text = currentItemData.description;
         iconItem.sprite = ProfileManager.Instance.dataConfig.spriteDataConfig.GetItemSprite(itemType);
         
-        UIManager.instance.panelTotal.UsingItemMode();
         UIManager.instance.panelGamePlay.UsingItemMode();
     }
 
     public void UsingItemDone() {
         UIManager.instance.panelGamePlay.OutItemMode();
-        UIManager.instance.panelTotal.OutItemMode();
         UIManager.instance.ClosePanelUsingItem();
     }
 
