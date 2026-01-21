@@ -88,6 +88,7 @@ public class Cake : MonoBehaviour
         EventManager.AddListener(EventName.OnUsingReviveDone.ToString(), OnUsingReviveDone);
         curveRotate = ProfileManager.Instance.dataConfig.cakeAnimationSetting.GetCurveRightWay();
         timeRotate = ProfileManager.Instance.dataConfig.cakeAnimationSetting.GetTimeRightWay();
+        UpdatePlateDecor();
     }
 
     bool onUsingFillUp;
@@ -160,6 +161,7 @@ public class Cake : MonoBehaviour
         {
             InitPiecesSame(pieceCakeIDCount[i], pieceCakeID[i]);
         }
+        UpdatePlateDecor();
     }
 
     public void InitData(Plate plate)
@@ -175,6 +177,7 @@ public class Cake : MonoBehaviour
             InitPiecesSame(pieceCakeIDCount[i], pieceCakeID[i]);
         }
         currentPlate = plate;
+        UpdatePlateDecor();
     }
     public void InitData(CakeSave cakeSaveData) {
         //Debug.Log("init by data save");
@@ -188,6 +191,16 @@ public class Cake : MonoBehaviour
         {
             InitPiecesSame(pieceCakeIDCount[i], pieceCakeID[i]);
         }
+    }
+    
+    public void UpdatePlateDecor()
+    {
+        var currentId = 0;
+        if (!objectDecoration.ContainsKey(currentId))
+        {
+            GameObject newDecor = Instantiate(Resources.Load("Decoration/Plate/" + currentId) as GameObject, spawnContainer);
+            objectDecoration.Add(currentId, newDecor);
+        } 
     }
 
     public void InitData(List<int> cakeIDs, Plate plate) {
