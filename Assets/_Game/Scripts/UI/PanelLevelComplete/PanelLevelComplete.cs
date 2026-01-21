@@ -31,7 +31,6 @@ public class PanelLevelComplete : UIPanel
     void Start()
     {
         btnReviveCoin.onClick.AddListener(ReviveCoin);
-        btnReviveAds.onClick.AddListener(ReviveADS);
         btnExit.onClick.AddListener(ShowPanelHint);
         hintObj.onClick.AddListener(ExitPanel);
         winGameCloseBtn.onClick.AddListener(ExitPanel);
@@ -56,12 +55,10 @@ public class PanelLevelComplete : UIPanel
 
     void ExitPanel() {
         OnClose();
-        GameManager.Instance.ShowInter();
         ProfileManager.Instance.playerData.cakeSaveData.ClearAllCake();
         GameManager.Instance.cakeManager.SetOnMove(false);
         GameManager.Instance.ClearAllCake();
         GameManager.Instance.BackToMenu();
-        UIManager.instance.ShowPanelLoading();
     }
 
     void ClosePanel()
@@ -77,24 +74,7 @@ public class PanelLevelComplete : UIPanel
         hintObj.gameObject.SetActive(true);
         sheetAnimation.PlayAnim();
     }
-
-    void ReviveADS()
-    {
-        //if (GameManager.Instance.IsHasNoAds())
-        //    ReviveADSSucces();
-        //else
-        //    AdsManager.Instance.ShowRewardVideo(WatchVideoRewardType.GameOverRevive.ToString(), ReviveADSSucces);
-
-        GameManager.Instance.ShowRewardVideo(WatchVideoRewardType.GameOverRevive, ReviveADSSucces);
-    }
-
-    void ReviveADSSucces()
-    {
-        GameManager.Instance.itemManager.UsingItem(ItemType.Revive);
-        EventManager.TriggerEvent(EventName.OnUsingRevive.ToString());
-        OnClose();
-    }
-
+    
     void ReviveCoin()
     {
         ProfileManager.Instance.playerData.playerResourseSave.ConsumeMoney(ConstantValue.VAL_REVIVE_COIN);

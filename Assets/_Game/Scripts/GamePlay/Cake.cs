@@ -80,7 +80,6 @@ public class Cake : MonoBehaviour
 
     private void Start()
     {
-        EventManager.AddListener(EventName.ChangePlateDecor.ToString(), UpdatePlateDecor);
         EventManager.AddListener(EventName.UsingFillUp.ToString(), UsingFillUpMode);
         EventManager.AddListener(EventName.UsingFillUpDone.ToString(), UsingFillUpDone);
         EventManager.AddListener(EventName.UsingHammer.ToString(), UsingHammerMode);
@@ -161,7 +160,6 @@ public class Cake : MonoBehaviour
         {
             InitPiecesSame(pieceCakeIDCount[i], pieceCakeID[i]);
         }
-        UpdatePlateDecor();
     }
 
     public void InitData(Plate plate)
@@ -177,7 +175,6 @@ public class Cake : MonoBehaviour
             InitPiecesSame(pieceCakeIDCount[i], pieceCakeID[i]);
         }
         currentPlate = plate;
-        UpdatePlateDecor();
     }
     public void InitData(CakeSave cakeSaveData) {
         //Debug.Log("init by data save");
@@ -191,7 +188,6 @@ public class Cake : MonoBehaviour
         {
             InitPiecesSame(pieceCakeIDCount[i], pieceCakeID[i]);
         }
-        UpdatePlateDecor();
     }
 
     public void InitData(List<int> cakeIDs, Plate plate) {
@@ -250,7 +246,6 @@ public class Cake : MonoBehaviour
             pieces.Add(newPiece);
             InitPiece(i, cakeIDs[i]);
         }
-        UpdatePlateDecor();
     }
 
     public void InitData(List<IDInfor> idInfors)
@@ -270,7 +265,6 @@ public class Cake : MonoBehaviour
             }
         }
 
-        UpdatePlateDecor();
     }
     #endregion
 
@@ -529,6 +523,7 @@ public class Cake : MonoBehaviour
 
     public bool CheckDrop()
     {
+        Debug.Log("CheckDrop");
         if (GameManager.Instance.cakeManager.onCheckLooseGame)
             return false;
         if (currentPlate != null && currentPlate.currentCake == null)
@@ -852,7 +847,6 @@ public class Cake : MonoBehaviour
     public void DoneCakeMode()
     {
         GameManager.Instance.audioManager.PlaySoundEffect(SoundId.SFX_TapCube);
-        GameManager.Instance.questManager.AddProgress(QuestType.CompleteCake, 1);
         GameManager.Instance.quickTimeEventManager.AddProgess();
         if (panelTotal == null)
             panelTotal = UIManager.instance.panelTotal;
@@ -863,10 +857,8 @@ public class Cake : MonoBehaviour
             cakeLevel = ProfileManager.Instance.playerData.cakeSaveData.GetOwnedCakeLevel(pieces[0].cakeID);
 
         GameManager.Instance.AddPiggySave(GameManager.Instance.GetDefaultCakeProfit(pieces[0].cakeID, cakeLevel, true));
-        if(!ProfileManager.Instance.playerData.playerResourseSave.AddExp(GameManager.Instance.GetDefaultCakeProfit(pieces[0].cakeID, cakeLevel)))
-        {
-            GameManager.Instance.cakeManager.AddCakeCount();
-        }
+        ProfileManager.Instance.playerData.playerResourseSave.AddExp(
+            GameManager.Instance.GetDefaultCakeProfit(pieces[0].cakeID, cakeLevel));
         ProfileManager.Instance.playerData.playerResourseSave.AddMoney(GameManager.Instance.GetDefaultCakeProfit(pieces[0].cakeID, cakeLevel, true));
         ProfileManager.Instance.playerData.playerResourseSave.AddTrophy((int)GameManager.Instance.GetDefaultCakeProfit(pieces[0].cakeID, cakeLevel));
         DOVirtual.DelayedCall(0.18f, () => {
@@ -883,8 +875,6 @@ public class Cake : MonoBehaviour
         if (pieces.Count == 0)
             return;
         int cakeLevel = ProfileManager.Instance.playerData.cakeSaveData.GetOwnedCakeLevel(pieces[0].cakeID);
-        CoinEffect coinEffect = GameManager.Instance.objectPooling.GetCoinEffect();
-        coinEffect.transform.position = Camera.main.WorldToScreenPoint(transform.position);
         // coinEffect.Move(panelTotal.GetCoinTrs());
 
         EffectMove effectMove = GameManager.Instance.objectPooling.GetEffectMove();
@@ -915,31 +905,6 @@ public class Cake : MonoBehaviour
         });
     }
 
-    public void UpdatePlateDecor()
-    {
-        int allPlateCount = ProfileManager.Instance.dataConfig.decorationDataConfig.GetDecorationDataList(DecorationType.Plate).decorationDatas.Count;
-        int currentId = ProfileManager.Instance.playerData.decorationSave.GetUsingDecor(DecorationType.Plate);
-        for (int i = 0; i < allPlateCount; i++)
-        {
-            if (objectDecoration.ContainsKey(i))
-            {
-                if(i != currentId)
-                {
-                    objectDecoration[i].SetActive(false);
-                }
-                else
-                {
-                    objectDecoration[i].SetActive(true);
-                }
-            }
-        }
-        if (!objectDecoration.ContainsKey(currentId))
-        {
-            GameObject newDecor = Instantiate(Resources.Load("Decoration/Plate/" + currentId.ToString()) as GameObject, spawnContainer);
-            objectDecoration.Add(currentId, newDecor);
-        }   
-    }
-  
     public void DoAnimImpact()
     {
         if (cakeDone)

@@ -24,9 +24,6 @@ public class UIManager : MonoBehaviour {
     public PanelTotal panelTotal;
     public PanelPlayGame panelGamePlay;
     PanelBakery panelBakery;
-    PanelDecorations panelDecorations;
-    PanelShop panelShop;
-    PanelTopUp panelTopUp;
 
     [SerializeField] GameObject objSpawnPanel;
     [SerializeField] GameObject objEffect;
@@ -345,97 +342,8 @@ public class UIManager : MonoBehaviour {
                 panelBakery.OnClose();
             }
         }
-        if (panelDecorations != null && ignorePanel != UIPanelType.PanelDecorations)
-        {
-            if (panelDecorations.gameObject.activeSelf)
-            {
-                panelDecorations.OnClose();
-            }
-        }
-        if (panelShop != null && ignorePanel != UIPanelType.PanelShop)
-        {
-            if (panelShop.gameObject.activeSelf)
-            {
-                panelShop.OnClose();
-            }
-        }
-        if (panelTopUp != null && ignorePanel != UIPanelType.PanelTopUp)
-        {
-            if (panelTopUp.gameObject.activeSelf)
-            {
-                panelTopUp.OnClose();
-            }
-        }
     }
-
-    public void ShowPanelSetting()
-    {
-        isHasPopupOnScene = true;
-        GameObject go = GetPanel(UIPanelType.PanelSetting);
-        go.SetActive(true);
-    }
-    public void ClosePanelSetting()
-    {
-        isHasPopupOnScene = false;
-        GameObject go = GetPanel(UIPanelType.PanelSetting);
-        go.SetActive(false);
-    }
-
-    public void ShowPanelDailyQuest()
-    {
-        isHasPopupOnScene = true;
-        GameObject go = GetPanel(UIPanelType.PanelDailyQuest);
-        go.SetActive(true);
-    }
-    public void ClosePanelDailyQuest()
-    {
-        isHasPopupOnScene = false;
-        GameObject go = GetPanel(UIPanelType.PanelDailyQuest);
-        go.SetActive(false);
-    }
-
-    public void ShowPanelDecorations()
-    {
-        CloseOtherMenu(UIPanelType.PanelDecorations);
-        isHasPopupOnScene = true;
-        GameObject go = GetPanel(UIPanelType.PanelDecorations);
-        go.SetActive(true);
-        panelTotal.ShowMainSceneContent(false);
-        panelTotal.Transform.SetAsLastSibling();
-        GameManager.Instance.decorationManager.StartCamera(true);
-        if (panelDecorations == null)
-        {
-            panelDecorations = go.GetComponent<PanelDecorations>();
-        }
-    }
-    public void ClosePanelDecorations()
-    {
-        isHasPopupOnScene = false;
-        GameObject go = GetPanel(UIPanelType.PanelDecorations);
-        go.SetActive(false);
-        GameManager.Instance.decorationManager.StartCamera(false);
-    }
-
-    public void ShowPanelShop()
-    {
-        CloseOtherMenu(UIPanelType.PanelShop);
-        isHasPopupOnScene = true;
-        GameObject go = GetPanel(UIPanelType.PanelShop);
-        go.SetActive(true);
-        panelTotal.ShowMainSceneContent(false);
-        panelTotal.Transform.SetAsLastSibling();
-        if (panelShop == null)
-        {
-            panelShop = go.GetComponent<PanelShop>();
-        }
-    }
-    public void ClosePanelShop()
-    {
-        isHasPopupOnScene = false;
-        GameObject go = GetPanel(UIPanelType.PanelShop);
-        go.SetActive(false);
-    }
-
+    
     public void ShowPanelCakeReward()
     {
         isHasPopupOnScene = true;
@@ -445,6 +353,7 @@ public class UIManager : MonoBehaviour {
     public void ClosePanelCakeReward()
     {
         isHasPopupOnScene = false;
+        GameManager.Instance.cakeManager.SetOnMove(false);
         GameObject go = GetPanel(UIPanelType.PanelCakeReward);
         go.SetActive(false);
     }
@@ -464,16 +373,6 @@ public class UIManager : MonoBehaviour {
         go.SetActive(false);
     }
 
-    public void ShowPanelLoading() {
-        isHasPopupOnScene = true;
-        GameObject go = GetPanel(UIPanelType.PanelLoading);
-        go.SetActive(true);
-    }
-    public void ClosePanelLoading() {
-        isHasPopupOnScene = false;
-        GameObject go = GetPanel(UIPanelType.PanelLoading);
-        go.SetActive(false);
-    }
 
     public void ShowPanelUsingItem()
     {
@@ -485,67 +384,6 @@ public class UIManager : MonoBehaviour {
     {
         //isHasPopupOnScene = false;
         GameObject go = GetPanel(UIPanelType.PanelUsingItem);
-        go.SetActive(false);
-    }
-
-    public void ShowPanelLeaderBoard()
-    {
-        isHasPopupOnScene = true;
-        GameObject go = GetPanel(UIPanelType.PanelLeaderBoard);
-        go.SetActive(true);
-    }
-    public void ClosePanelLeaderBoard()
-    {
-        isHasPopupOnScene = false;
-        GameObject go = GetPanel(UIPanelType.PanelLeaderBoard);
-        go.SetActive(false);
-    }
-
-    public void ShowPanelTopUp()
-    {
-        CloseOtherMenu(UIPanelType.PanelTopUp);
-        isHasPopupOnScene = true;
-        GameObject go = GetPanel(UIPanelType.PanelTopUp);
-        go.SetActive(true);
-        panelTotal.ShowMainSceneContent(false);
-        panelTotal.Transform.SetAsLastSibling();
-        if (panelTopUp == null)
-        {
-            panelTopUp = go.GetComponent<PanelTopUp>();
-        }
-    }
-
-    public void ClosePanelTopUp()
-    {
-        isHasPopupOnScene = false;
-        GameObject go = GetPanel(UIPanelType.PanelTopUp);
-        go.SetActive(false);
-    }
-
-    public void ShowPanelQuickIAP(OfferID packageId)
-    {
-        GameObject go = GetPanel(UIPanelType.PanelQuickIAP);
-        go.SetActive(true);
-        go.GetComponent<PanelQuickIAP>().Init(packageId);
-    }
-
-    public void ClosePanelQuickIAP()
-    {
-        GameObject go = GetPanel(UIPanelType.PanelQuickIAP);
-        go.transform.SetAsLastSibling();
-        go.SetActive(false);
-    }
-    public void ShowPanelSelectReward()
-    {
-        Debug.Log("ShowPanelSelectReward");
-        isHasPopupOnScene = true;
-        GameObject go = GetPanel(UIPanelType.PanelSelectReward);
-        go.SetActive(true);
-    }
-    public void ClosePanelSelectReward()
-    {
-        isHasPopupOnScene = false;
-        GameObject go = GetPanel(UIPanelType.PanelSelectReward);
         go.SetActive(false);
     }
 

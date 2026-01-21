@@ -3,10 +3,8 @@ using DG.Tweening.Core.Easing;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.EventSystems;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -15,18 +13,14 @@ public class GameManager : Singleton<GameManager>
     public AudioManager audioManager;
     public CakeManager cakeManager;
     public ObjectPooling objectPooling;
-    public SpinManager spinManager;
-    public DailyRewardManager dailyRewardManager;
-    public DecorationManager decorationManager;
     public ItemManager itemManager;
     public LightManager lightManager;
-    public QuestManager questManager;
     public QuickTimeEventManager quickTimeEventManager;
     public List<ItemData> rewardItems;
     private void Start()
     {
         cameraManager.ShowARoom(0);
-        // Play();
+        Play();
     }
 
     public void Play()
@@ -49,7 +43,6 @@ public class GameManager : Singleton<GameManager>
         cameraManager.ShowARoom(0);
         cameraManager.CloseMainCamera();
         playing = false;
-        ShowCollapsibleBanner();
     }
 
     public float GetDefaultCakeProfit(int cakeID, int level, bool booster = false)
@@ -301,84 +294,4 @@ public class GameManager : Singleton<GameManager>
         if(ProfileManager.Instance.versionStatus == VersionStatus.Cheat) return true;
         return ProfileManager.Instance.playerData.playerResourseSave.IsHaveItem(ItemType.NoAds);
     }
-
-    public void OnBuyPackSuccess(OfferID packageId)
-    {
-        switch (packageId)
-        {
-            case OfferID.None:
-                break;
-            case OfferID.pack1:
-                rewardItems.Clear();
-                ProfileManager.Instance.playerData.playerResourseSave.ClearPiggySave();
-                ItemData itemData = new ItemData();
-                itemData.ItemType = ItemType.Coin;
-                itemData.amount = ProfileManager.Instance.playerData.playerResourseSave.piggySave;
-                rewardItems.Add(itemData);
-                CollectItemReward(rewardItems);
-                break;
-            case OfferID.piggy_pack:
-                ShopPack shopPack = ProfileManager.Instance.dataConfig.shopDataConfig.GetShopPack(OfferID.piggy_pack);
-                if(shopPack != null)
-                {
-                    GetItemRewards(shopPack.rewards);
-                }
-                break;
-            default:
-                break;
-        }
-    }
-
-    public void ShowRewardVideo(WatchVideoRewardType watchVideoRewardType, UnityAction callBack)
-    {
-        if (IsHasNoAds())
-        {
-            questManager.AddProgress(QuestType.CompleteCake, 1);
-            if (callBack != null)
-                callBack();
-        } 
-        else
-        {
-            questManager.AddProgress(QuestType.CompleteCake, 1);
-        //    AdsManager.Instance.ShowRewardVideo(watchVideoRewardType.ToString(), callBack);
-        }  
-    }
-
-    public void ShowCollapsibleBanner()
-    {
-        //AdsManager.Instance.ShowCollapsibleBannerAds(false, null);
-  //      AdsManager.Instance.ShowBannerAds();
-    }
-
-    public void ShowInterRest()
-    {
-        if (IsHasNoAds()) return;
-        if (ProfileManager.Instance.playerData.playerResourseSave.currentLevel >= 3)
-            UIManager.instance.ShowPanelPreAds();
-    }
-
-    public void ShowInter()
-    {
-        if (GameManager.Instance.IsHasNoAds()) return;
-        if (ProfileManager.Instance.versionStatus == VersionStatus.Cheat) return;
-        //AdsManager.Instance.ShowInterstitial();
-    }
-}
-
-public enum WatchVideoRewardType
-{
-    NONE,
-    X2CLAIM,
-    UNLOCKITEM,
-    TEST_ADS,
-    GetFreeBooster,
-    FreeCoinAds,
-    X2RewardAds,
-    CollectCoinAds,
-    BoosterPlayTime,
-    TimeBooster,
-    UpgradeCake,
-    GameOverRevive,
-    FreeSpinAds,
-    GetExtraCard,
 }

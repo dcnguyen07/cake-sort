@@ -132,6 +132,7 @@ public class CakeManager : MonoBehaviour
     }
 
     void Drop() {
+        Debug.Log("Drop");
         currentGCake?.Drop();
         currentGCake = null;
         levelUp = false;
@@ -579,10 +580,6 @@ public class CakeManager : MonoBehaviour
         {
             UIManager.instance.ShowPanelCakeReward();
         }
-        else
-        {
-            UIManager.instance.ShowPanelSelectReward();
-        }
     }
 
     public void UsingReroll() {
@@ -666,23 +663,5 @@ public class CakeManager : MonoBehaviour
             streakEffect.gameObject.SetActive(true);
         }
     }
-    #endregion
-
-    #region Ads
-
-    public int cakeCount;
-    public void AddCakeCount()
-    {
-        if(ProfileManager.Instance.playerData.playerResourseSave.currentLevel >= 3)
-        {
-            cakeCount++;
-            if(cakeCount > ConstantValue.VAL_CAKECOUNT_ADS)
-            {
-                cakeCount = 0;
-                GameManager.Instance.ShowInterRest();
-            }
-        }
-    }
-
     #endregion
 }

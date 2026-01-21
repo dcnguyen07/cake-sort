@@ -91,14 +91,13 @@ public class PanelTotal : UIPanel
     private void ChangeLevel()
     {
 
-        txtCurrentLevel.text = ProfileManager.Instance.playerData.playerResourseSave.currentLevel.ToString();
+        txtCurrentLevel.text = "1";
     }
 
     void Start()
     {
-        playBtn.onClick.AddListener(PlayGame);
 
-        currentLevel = ProfileManager.Instance.playerData.playerResourseSave.currentLevel;
+        currentLevel = 0;
         ChangeLevel();
         ChangeExp();
     }
@@ -115,7 +114,6 @@ public class PanelTotal : UIPanel
         GameManager.Instance.cameraManager.OpenMainCamera();
         //GameManager.Instance.PlayGame();
         mainMenuContent.SetActive(false);
-        UIManager.instance.ShowPanelLoading();
         DOVirtual.DelayedCall(2.5f, GameManager.Instance.PlayGame);
     }
 
@@ -191,8 +189,6 @@ public class PanelTotal : UIPanel
             GameManager.Instance.quickTimeEventManager.onQuickTimeEvent)
         { 
             UIManager.instance.panelTotal.OutTimeEvent();
-            GameManager.Instance.RandonReward();
-            UIManager.instance.ShowPanelSelectReward();
         }
     }
 

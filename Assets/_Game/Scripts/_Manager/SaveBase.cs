@@ -18,10 +18,10 @@ public class SaveBase
 
     public virtual void SaveData()
     {
-        if (!IsChangeData) return;
-        IsChangeData = false;
-        PlayerPrefs.SetString(stringSave, JsonUtility.ToJson(this).ToString());
-        PlayerPrefs.Save();
+        // if (!IsChangeData) return;
+        // IsChangeData = false;
+        // PlayerPrefs.SetString(stringSave, JsonUtility.ToJson(this).ToString());
+        // PlayerPrefs.Save();
     }
 
     public string GetJsonData()
