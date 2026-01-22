@@ -9,7 +9,6 @@ public class CakeShowComponent : MonoBehaviour
     [SerializeField] Camera cakeCamera;
     [SerializeField] MeshFilter cakeMesh;
     [SerializeField] List<MeshFilter> cakeSlideMeshs;
-    [SerializeField] DOTweenAnimation cakeAnim;
     [SerializeField] float normalCamZoom;
     [SerializeField] float unlockCamZoom;
     [SerializeField] Transform cakePlate;

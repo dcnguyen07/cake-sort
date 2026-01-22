@@ -1,12 +1,8 @@
 using DG.Tweening;
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UIElements;
 
 public class CakeManager : MonoBehaviour
 {
@@ -132,7 +128,6 @@ public class CakeManager : MonoBehaviour
     }
 
     void Drop() {
-        Debug.Log("Drop");
         currentGCake?.Drop();
         currentGCake = null;
         levelUp = false;

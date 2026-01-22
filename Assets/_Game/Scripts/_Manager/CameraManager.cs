@@ -42,17 +42,6 @@ public class CameraManager : MonoBehaviour
         return mainCamera;
     }
 
-    public void SwitchToMainCam()
-    {
-        TurnOffAllCamera();
-        GetMainCamera().transform.DOMove(mainCameraInfo.position, 0.5f);
-        GetMainCamera().DOOrthoSize(mainCameraInfo.zoomValue, 0.5f);
-    }
-
-    public void TurnOffAllCamera() {
-
-    }
-
     public void FirstCamera() {
         
         DOVirtual.Float(mainCamera.orthographicSize, currentCamerasize, 1f, (value) =>
@@ -60,12 +49,6 @@ public class CameraManager : MonoBehaviour
             mainCamera.orthographicSize = value;
         });
     }
-
-    //private void Update()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.Space)) { UsingItemMode(); }
-    //    if (Input.GetKeyDown(KeyCode.V)) { OutItemMode(); }
-    //}
 
     public void UsingItemMode() {
         mainCamera.transform.DOMove(positionUsingItem, .5f).SetEase(Ease.OutCubic);

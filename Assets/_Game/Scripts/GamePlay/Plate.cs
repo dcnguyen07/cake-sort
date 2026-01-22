@@ -1,10 +1,6 @@
-using DG.Tweening;
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
+using DG.Tweening;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class Plate : MonoBehaviour
 {

@@ -536,7 +536,6 @@ public class Cake : MonoBehaviour
 
     public bool CheckDrop()
     {
-        Debug.Log("CheckDrop");
         if (GameManager.Instance.cakeManager.onCheckLooseGame)
             return false;
         if (currentPlate != null && currentPlate.currentCake == null)
