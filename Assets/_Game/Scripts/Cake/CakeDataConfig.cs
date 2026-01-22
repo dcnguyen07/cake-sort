@@ -117,7 +117,6 @@ public class CakeObjectByLevel
 {
     public int id;
     public List<GameObject> cakePref;
-    public List<Sprite> cakeIcon;
     public GameObject GetCakePref(int level)
     {
         return cakePref[level - 1];

@@ -23,7 +23,6 @@ public class UIManager : MonoBehaviour {
     public Camera mainCamera;
     public PanelTotal panelTotal;
     public PanelPlayGame panelGamePlay;
-    PanelBakery panelBakery;
 
     [SerializeField] GameObject objSpawnPanel;
     [SerializeField] GameObject objEffect;
@@ -248,7 +247,6 @@ public class UIManager : MonoBehaviour {
     }
     public void ShowPanelTotalContent()
     {
-        CloseOtherMenu(UIPanelType.PanelTotal);
         if (panelTotal == null)
         {
             GameObject go = GetPanel(UIPanelType.PanelTotal);
@@ -311,37 +309,6 @@ public class UIManager : MonoBehaviour {
         isHasPopupOnScene = false;
         GameObject go = GetPanel(UIPanelType.PanelItemsReward);
         go.SetActive(false);
-    }
-
-    public void ShowPanelBakery()
-    {
-        CloseOtherMenu(UIPanelType.PanelBakery);
-        isHasPopupOnScene = true;
-        GameObject go = GetPanel(UIPanelType.PanelBakery);
-        go.SetActive(true);
-        panelTotal.ShowMainSceneContent(false);
-        panelTotal.Transform.SetAsLastSibling();
-        if(panelBakery == null)
-        {
-            panelBakery = go.GetComponent<PanelBakery>();
-        }
-    }
-    public void ClosePanelBakery()
-    {
-        isHasPopupOnScene = false;
-        GameObject go = GetPanel(UIPanelType.PanelBakery);
-        go.SetActive(false);
-    }
-
-    void CloseOtherMenu(UIPanelType ignorePanel)
-    {
-        if(panelBakery != null && ignorePanel != UIPanelType.PanelBakery)
-        {
-            if(panelBakery.gameObject.activeSelf)
-            {
-                panelBakery.OnClose();
-            }
-        }
     }
     
     public void ShowPanelCakeReward()
