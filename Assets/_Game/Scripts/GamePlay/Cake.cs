@@ -859,7 +859,6 @@ public class Cake : MonoBehaviour
     public void DoneCakeMode()
     {
         GameManager.Instance.audioManager.PlaySoundEffect(SoundId.SFX_TapCube);
-        GameManager.Instance.quickTimeEventManager.AddProgess();
         if (panelTotal == null)
             panelTotal = UIManager.instance.panelTotal;
 

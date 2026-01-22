@@ -11,7 +11,6 @@ public class GameManager : Singleton<GameManager>
     public ObjectPooling objectPooling;
     public ItemManager itemManager;
     public LightManager lightManager;
-    public QuickTimeEventManager quickTimeEventManager;
     public List<ItemData> rewardItems;
     private void Start()
     {
