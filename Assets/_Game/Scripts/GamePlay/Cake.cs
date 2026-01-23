@@ -382,23 +382,7 @@ public class Cake : MonoBehaviour
         }
         if (onChooseRevive) {
             centerRevive = true;
-            GameManager.Instance.itemManager.OnUsingItem();
-            UsingRevive();
             EventManager.TriggerEvent(EventName.OnUsingReviveDone.ToString());
-            return;
-        }
-
-        if (onUsingFillUp)
-        {
-            //Debug.Log("Choose on Fill up");
-            FillUp();
-            return;
-        }
-
-        if (onUsingHammger)
-        {
-            //Debug.Log("Choose on using hammer");
-            UsingHammer();
             return;
         }
 
@@ -406,111 +390,11 @@ public class Cake : MonoBehaviour
         {
             myGroupCake.OnFollowMouse();
         }
-        //else Debug.Log("Group cake null!");
     }
     int indexRemove;
-    void FillUp() {
-        if (cakeDone)
-            return;
-        if (myGroupCake != null)
-        {
-            if (GameManager.Instance.cakeManager.CakeOnWait(myGroupCake))
-                return;
-        }
-        GameManager.Instance.itemManager.OnUsingItem();
-        EventManager.TriggerEvent(EventName.UsingFillUpDone.ToString());
-        tweenAnimations.Add(transform.DOMove(GameManager.Instance.itemManager.GetPointFillUp(), .25f).SetEase(Ease.OutBack));
-        scaleFillUp = 1.9f;
-        tweenAnimations.Add(transform.DOScale(1.9f, .25f).SetEase(Ease.OutBack).OnComplete(()=> {
-            //transform.DORotate(new Vector3(0, 360f, 0), 1f, RotateMode.WorldAxisAdd);
-            listCakeIDFillUp.Clear();
-            indexRemove = 0;
-            pieceCakeIDFill = pieces[0].cakeID;
-            for (int i = pieces.Count - 1; i >= 0; i--)
-            {
-                Debug.Log("Remove");
-                if (pieces[i].cakeID != pieceCakeIDFill)
-                {
-                    pieces[i].RemoveByFillUp(indexRemove);
-                    pieces.Remove(pieces[i]);
-                    indexRemove++;
-                }
-              
-            }
-            currentRotateIndex = pieces[pieces.Count - 1].currentRotateIndex;
-            
-            DOVirtual.DelayedCall((indexRemove + 1) * .25f, () => {
-                indexRemove = 0;
-                for (int i = pieces.Count; i < 6; i++)
-                {
-                    DOVirtual.DelayedCall(indexRemove * 0.25f, InitPieces);
-                    indexRemove++;
-                }
-                DOVirtual.DelayedCall(indexRemove * 0.39f, () =>
-                {
-                    tweenAnimations.Add(transform.DORotate(new Vector3(0, 360, 0), 1f, RotateMode.WorldAxisAdd).SetEase(Ease.InCirc).OnComplete(()=> {
-                        transform.DOLocalMove(Vector3.zero, .3f).SetEase(Ease.OutBack);
-                        GameManager.Instance.itemManager.UsingItemDone();
-                        ProfileManager.Instance.playerData.playerResourseSave.UsingItem(ItemType.FillUp);
-                        DoneCakeMode();
-                        ProfileManager.Instance.playerData.cakeSaveData.RemoveCake(currentPlate.plateIndex);
-                        UsingFillUpDone();
-                    }));
-
-                    tweenAnimations.Add(transform.DOScale(scaleFillUp + .3f, .15f));
-                    tweenAnimations.Add(transform.DOScale(scaleFillUp - .1f, .15f).SetDelay(.15f));
-                    tweenAnimations.Add(transform.DOScale(scaleFillUp, .15f).SetDelay(.3f));
-                   
-                });
-            });
-
-          
-        }));
-
-    }
-
-    void UsingHammer() {
-          if (cakeDone)
-            return;
-        if (currentPlate != null)
-            currentPlate.currentCake = null;
-        if (myGroupCake != null)
-        {
-            if (GameManager.Instance.cakeManager.CakeOnWait(myGroupCake))
-                return;
-        }
-        GameManager.Instance.itemManager.OnUsingItem();
-        ProfileManager.Instance.playerData.playerResourseSave.UsingItem(ItemType.Hammer);
-        ProfileManager.Instance.playerData.cakeSaveData.RemoveCake(currentPlate.plateIndex);
-        GameManager.Instance.itemManager.CallUsingHammerOnCake(this, CallBackOnAnimHammerDone);
-        EventManager.TriggerEvent(EventName.UsingHammerDone.ToString());
-    }
-
     public void SetActiveCollider(bool active)
     {
         myCollider.enabled = active;
-    }
-
-    public void UsingRevive(bool lastCake = false) {
-        if (cakeDone)
-            return;
-        if (currentPlate != null)
-            currentPlate.currentCake = null;
-        if (myGroupCake != null)
-        {
-            if (GameManager.Instance.cakeManager.CakeOnWait(myGroupCake))
-                return;
-        }
-
-        this.lastCake = lastCake;
-        if (!lastCake)
-            GameManager.Instance.itemManager.Revie(this, CallBackOnReviveDone, lastCake);
-        else
-        {
-            GameManager.Instance.itemManager.Revie(this, CallBackOnAnimHammerDone, lastCake);
-
-        }
-
     }
 
     public void CallBackOnAnimHammerDone() {
@@ -518,22 +402,7 @@ public class Cake : MonoBehaviour
     }
     PlateIndex plateIndex;
     bool lastCake;
-    void CallBackOnReviveDone() {
-        CallBackOnAnimHammerDone();
-        if (!centerRevive)
-        {
-            GameManager.Instance.itemManager.RemoveCake();
-            return;
-        }
-       
-        GameManager.Instance.itemManager.AssignCakeCallBack(this);
-        plateIndex = new(currentPlate.plateIndex);
-        ProfileManager.Instance.playerData.cakeSaveData.RemoveCake(plateIndex);
-        GameManager.Instance.itemManager.RemoveCake();
-    }
-
     
-
     public bool CheckDrop()
     {
         if (GameManager.Instance.cakeManager.onCheckLooseGame)
@@ -853,7 +722,6 @@ public class Cake : MonoBehaviour
         ProfileManager.Instance.playerData.playerResourseSave.AddExp(
             GameManager.Instance.GetDefaultCakeProfit(pieces[0].cakeID, cakeLevel));
         ProfileManager.Instance.playerData.playerResourseSave.AddMoney(GameManager.Instance.GetDefaultCakeProfit(pieces[0].cakeID, cakeLevel, true));
-        ProfileManager.Instance.playerData.playerResourseSave.AddTrophy((int)GameManager.Instance.GetDefaultCakeProfit(pieces[0].cakeID, cakeLevel));
         DOVirtual.DelayedCall(0.18f, () => {
             tweens.Add(transform.DOScale(Vector3.one * .8f, .13f));
             tweens.Add(transform.DOScale(Vector3.one * 1.1f, .13f).SetDelay(.13f));

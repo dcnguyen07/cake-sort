@@ -5,7 +5,6 @@ public class GameManager : Singleton<GameManager>
     public AudioManager audioManager;
     public CakeManager cakeManager;
     public ObjectPooling objectPooling;
-    public ItemManager itemManager;
     public LightManager lightManager;
     private void Start()
     {
@@ -27,8 +26,8 @@ public class GameManager : Singleton<GameManager>
 
     public float GetDefaultCakeProfit(int cakeID, int level, bool booster = false)
     {
-        return (ConstantValue.VAL_DEFAULT_EXP + ConstantValue.VAL_DEFAULT_CAKE_ID * cakeID + ConstantValue.VAL_DEFAULT_CAKE_LEVEL * (level - 1))
-            * (booster ? (ProfileManager.Instance.playerData.playerResourseSave.HasX2Booster() ? 2 : 1) : 1);
+        return (ConstantValue.VAL_DEFAULT_EXP + ConstantValue.VAL_DEFAULT_CAKE_ID * cakeID +
+                ConstantValue.VAL_DEFAULT_CAKE_LEVEL * (level - 1));
     }
 
     public void GetLevelUpReward(bool getLevelCake = true)
