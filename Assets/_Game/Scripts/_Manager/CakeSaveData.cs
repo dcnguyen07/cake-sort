@@ -1,7 +1,3 @@
-
-//using SDK;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -26,11 +22,9 @@ public class CakeSaveData : SaveBase
             cakeIDUsing = data.cakeIDUsing;
             cakeOnPlates = data.cakeOnPlates;
             cakeOnWaits = data.cakeOnWaits;
-            UpdateCardRequire();
         }
         else {
             AddFirstCake();
-            UpdateCardRequire();
             IsMarkChangeData();
             SaveData();
         }
@@ -54,7 +48,6 @@ public class CakeSaveData : SaveBase
         {
             if (ownedCakes[i].cakeID == cakeId)
             {
-                ownedCakes[i].UpdateCardRequire();
                 return ownedCakes[i];
             }
         }
@@ -71,14 +64,6 @@ public class CakeSaveData : SaveBase
             }
         }
         return 1;
-    }
-
-    void UpdateCardRequire()
-    {
-        for (int i = 0; i < ownedCakes.Count; i++)
-        {
-            ownedCakes[i].UpdateCardRequire();
-        }
     }
 
     public int GetRandomUnlockedCake()
@@ -109,7 +94,6 @@ public class CakeSaveData : SaveBase
         OwnedCake cake = new();
         cake.cakeID = cakeId;
         cake.level = 1;
-        cake.cardAmount = amount;
         ownedCakes.Add(cake);
         IsMarkChangeData();
         SaveData();
@@ -118,13 +102,6 @@ public class CakeSaveData : SaveBase
     public int GetRandomOwnedCake()
     {
         return ownedCakes[UnityEngine.Random.Range(0, ownedCakes.Count)].cakeID;
-    }
-
-    public void OnUpgradeCard(OwnedCake ownedCake)
-    {
-        ownedCake.OnUpgradeCard();
-        IsMarkChangeData();
-        SaveData();
     }
 
     public bool IsHaveMoreThanThreeCake()
@@ -292,16 +269,6 @@ public class CakeSaveData : SaveBase
         return cakeOnPlates.Count > 0;
     }
 
-    public bool HasCakeUpgradeable()
-    {
-        for (int i = 0; i < ownedCakes.Count; i++)
-        {
-            if (ownedCakes[i].IsAbleToUpgrade())
-                return true;
-        }
-        return false;
-    }
-
     public void SetData(int cakeID, int currentTier)
     {
         for (int i = 0; i < ownedCakes.Count; i++)
@@ -368,46 +335,10 @@ public class OwnedCake
 {
     public int cakeID;
     public int level;
-    public int cardAmount;
-    int cardRequire;
 
     public void AddCard(int amount)
     {
-        cardAmount += amount;
-        //if(cardAmount >= cardRequire)
-        //{
-        //    level++;
-        //    cardAmount -= cardRequire;
-        //    UpdateCardRequire();
-        //}
         EventManager.TriggerEvent(EventName.AddCakeCard.ToString());
     }
 
-    public void OnUpgradeCard()
-    {
-        if (cardAmount >= cardRequire)
-        {
-            level++;
-//            ABIAnalyticsManager.Instance.TrackEventCakeLevelUp(level, cakeID);
-            cardAmount -= cardRequire;
-            UpdateCardRequire();
-            GameManager.Instance.cakeManager.ReInitData(cakeID);
-        }
-
-    }
-
-    public void UpdateCardRequire()
-    {
-        cardRequire = ProfileManager.Instance.dataConfig.cakeDataConfig.GetCardAmountToLevelUp(level + 1);
-    }
-
-    public int CardRequire { get => cardRequire; }
-
-    public bool IsAbleToUpgrade()
-    {
-        UpdateCardRequire();
-        float upgradePrice = upgradePrice = ConstantValue.VAL_CAKEUPGRADE_COIN * level;
-        return cardAmount >= cardRequire &&
-                ProfileManager.Instance.playerData.playerResourseSave.IsHasEnoughMoney(upgradePrice);
-    }
 }

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,33 +5,8 @@ using UnityEngine;
 public class CakeDataConfig : ScriptableObject
 {
     public List<CakeData> cakeDatas;
-    public List<CakeLevelData> cakeLevelDatas;
     public List<CakeObjectByLevel> cakeObjectByLevels;
-
-    //private void OnEnable()
-    //{
-    //    InitCardLevelData();
-    //}
-
-    public Sprite GetCakeIcon(int cakeID, int cakeTier) {
-        for (int i = 0; i < cakeDatas.Count; i++)
-        {
-            if (cakeDatas[i].id == cakeID)
-            return cakeDatas[i].icons[cakeTier];
-        }
-        return null;
-    }
-
-    public CakeData GetCakeData(int id)
-    {
-        for (int i = 0; i < cakeDatas.Count; i++)
-        {
-            if (cakeDatas[i].id == id)
-            { return cakeDatas[i]; }
-        }
-        return null;
-    }
-
+    
     public Mesh GetCakePieceMesh(int id, int level = 1)
     {
         for (int i = 0; i < cakeDatas.Count; i++)
@@ -42,32 +16,20 @@ public class CakeDataConfig : ScriptableObject
         }
         return null;
     }
+    
+    public Material GetCakePieceMaterial(int id)
+    {
+        for (int i = 0; i < cakeDatas.Count; i++)
+        {
+            if (cakeDatas[i].id == id)
+            { return cakeDatas[i].pieceMaterials[0]; }
+        }
+        return null;
+    }
 
     public int GetRandomCake()
     {
         return cakeDatas[Random.Range(0, cakeDatas.Count)].id;
-    }
-
-    void InitCardLevelData()
-    {
-        cakeLevelDatas.Clear();
-        for (int i = 0; i < 100; i++)
-        {
-            CakeLevelData cakeLevelData = new();
-            cakeLevelData.level = i + 1;
-            cakeLevelData.cardRequire = i == 0 ? 1 : i * 5;
-            cakeLevelDatas.Add(cakeLevelData);
-        }
-    }
-
-    public int GetCardAmountToLevelUp(int level)
-    {
-        for (int i = 0; i < cakeLevelDatas.Count; i++)
-        {
-            if (cakeLevelDatas[i].level == level)
-                return cakeLevelDatas[i].cardRequire;
-        }
-        return 0;
     }
 
     public GameObject GetCakePref(int cakeId)
@@ -81,35 +43,14 @@ public class CakeDataConfig : ScriptableObject
         }
         return null;
     }
-
-    public Mesh GetCakePieceMesh2(int cakeId)
-    {
-        int levelPref = ProfileManager.Instance.playerData.cakeSaveData.GetOwnedCakeLevel(cakeId);
-        if (levelPref > 2) levelPref = 2;
-        for (int i = 0; i < cakeDatas.Count; i++)
-        {
-            if (cakeDatas[i].id == cakeId)
-            {
-                return cakeDatas[i].pieces[levelPref - 1];
-            }
-        }
-        return null;
-    }
 }
 
 [System.Serializable]
 public class CakeData
 {
     public int id;
-    public List<Sprite> icons;
     public List<Mesh> pieces;
-}
-
-[System.Serializable] 
-public class CakeLevelData
-{
-    public int level;
-    public int cardRequire;
+    public List<Material> pieceMaterials;
 }
 
 [System.Serializable]

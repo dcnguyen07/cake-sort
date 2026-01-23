@@ -866,8 +866,6 @@ public class Cake : MonoBehaviour
         int cakeLevel = 0;
         if (pieces.Count > 0)
             cakeLevel = ProfileManager.Instance.playerData.cakeSaveData.GetOwnedCakeLevel(pieces[0].cakeID);
-
-        GameManager.Instance.AddPiggySave(GameManager.Instance.GetDefaultCakeProfit(pieces[0].cakeID, cakeLevel, true));
         ProfileManager.Instance.playerData.playerResourseSave.AddExp(
             GameManager.Instance.GetDefaultCakeProfit(pieces[0].cakeID, cakeLevel));
         ProfileManager.Instance.playerData.playerResourseSave.AddMoney(GameManager.Instance.GetDefaultCakeProfit(pieces[0].cakeID, cakeLevel, true));
@@ -885,33 +883,15 @@ public class Cake : MonoBehaviour
     void EffectDoneCake() {
         if (pieces.Count == 0)
             return;
-        int cakeLevel = ProfileManager.Instance.playerData.cakeSaveData.GetOwnedCakeLevel(pieces[0].cakeID);
-        // coinEffect.Move(panelTotal.GetCoinTrs());
-
-        EffectMove effectMove = GameManager.Instance.objectPooling.GetEffectMove();
-        effectMove.gameObject.SetActive(true);
-        effectMove.PrepareToMove(Camera.main.WorldToScreenPoint(transform.position), panelTotal.GetPointSlider(), () => {
-            EffectAdd trsExpEffect = GameManager.Instance.objectPooling.GetEffectExp();
-            trsExpEffect.SetActionCallBack(() => {
-                EventManager.TriggerEvent(EventName.ChangeExp.ToString());
-            });
-            trsExpEffect.transform.position = panelTotal.GetPointSlider().position;
-        });
-
+        EventManager.TriggerEvent(EventName.ChangeExp.ToString());
 
         Transform trsEffect = GameManager.Instance.objectPooling.GetCakeDoneEffect();
         trsEffect.transform.position = transform.position + vectorOffsetEffect;
         trsEffect.gameObject.SetActive(true);
 
-        ExpEffect expEffect = GameManager.Instance.objectPooling.GetExpEffect();
-        expEffect.transform.position = Camera.main.WorldToScreenPoint(transform.position) + vectorOffsetExp;
-        expEffect.ChangeText((GameManager.Instance.GetDefaultCakeProfit(pieces[0].cakeID, cakeLevel)).ToString());
-        expEffect.gameObject.SetActive(true);
-
         tweenAnimations.Add(transform.DOScale(0f, .3f).SetEase(Ease.InQuad));
 
         DOVirtual.DelayedCall(CacheSourse.float05, () => {
-            //Debug.Log("Destroy now");
             Destroy(gameObject);
         });
     }
@@ -954,7 +934,6 @@ public class Cake : MonoBehaviour
     }
 
     public bool CakeIsNull() {
-        //Debug.Log(currentPlate+" have cake null: "+pieces.Count);
         return pieces.Count == 0; 
     }
     

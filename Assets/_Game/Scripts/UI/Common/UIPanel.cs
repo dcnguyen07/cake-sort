@@ -1,32 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
 public enum UIPanelType {
-    PanelBase,
     PanelTotal,
-    PanelSpin,
-    PanelDailyReward,
-    PanelItemsReward,
-    PanelBakery,
-    PanelPlayGame,
-    PanelSetting,
-    PanelDecorations,
     PanelCakeReward,
     PanelLevelComplete,
-    PanelLoading,
-    PanelShop,
     PanelUsingItem,
-    PanelLeaderBoard,
-    PanelTopUp,
-    PanelQuickIAP,
-    PanelSelectReward,
-    PanelHint,
-    PanelDailyQuest,
-    PanelQuickTimeEvent,
-    PanelPreAds,
-    PanelCheat,
-    PanelTutorial
 }
 public class UIPanel : MonoBehaviour {
     public bool isRegisterInUI = true;

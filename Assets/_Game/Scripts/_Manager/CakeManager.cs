@@ -41,7 +41,6 @@ public class CakeManager : MonoBehaviour
 
     GroupCake groupCake;
     Cake currentCakeCheck;
-    StreakEffect streakEffect;
 
     public int justUnlockedCake;
     public bool levelUp;
@@ -269,20 +268,17 @@ public class CakeManager : MonoBehaviour
         else
         {
             timeCheckCake++;
-            //Debug.Log("on check cake set false");
             onCheckCake = false;
             if (timeCheckCake >= 2)
             {
                 table.SaveCake();
                 CheckSpawnCakeGroup();
-                //Debug.Log("on check cake set false");
                 onCheckCake = false;
                 ClearCakeNeedCheck();
                 AddCakeCheckDone(cake);
             }
             else
             {
-                //Debug.Log("on check cake set false");
                 onCheckCake = true;
                 indexCakeCheck = -1;
                 CheckNextCake();
@@ -295,7 +291,6 @@ public class CakeManager : MonoBehaviour
         if (cake == null) return;
         if (!cakeCheckDone.Contains(cake))
         {
-            Debug.Log("add cake done");
             cakeCheckDone.Add(cake);
             if (cakeNeedCheck.Count == 0)
             {
@@ -307,7 +302,6 @@ public class CakeManager : MonoBehaviour
     int timeCallAddCheckCake;
     void ResetCheckCake()
     {
-        Debug.LogError("Loi roi dmm");
         cakeNeedCheck.Clear();
     }
     void ClearCakeCheckDone() { cakeCheckDone.Clear(); }
@@ -318,8 +312,6 @@ public class CakeManager : MonoBehaviour
             timeCallAddCheckCake++;
             if (timeCallAddCheckCake > 30)
                 ResetCheckCake();
-            Debug.Log("add same cake: "+cake.currentPlate);
-            //Debug.Break();
             actionCallBackSameCake();
             return;
         }
@@ -329,7 +321,6 @@ public class CakeManager : MonoBehaviour
     }
 
     void CancelCheckLooseCake() {
-        Debug.Log("Cancel invoke");
         CancelInvoke("CheckLooseGame"); 
 
     }
@@ -341,19 +332,15 @@ public class CakeManager : MonoBehaviour
         this.actionCallBack = actionCallBack;
         currentCakeCheck = cake;
         cakeIDIndex = -1;
-        totalIDNeedCheck = cake.pieceCakeID.Count;
         idNeedCheckOnCake = new(cake.pieceCakeID);
         CheckOtherIDOfCake();
     }
-    int totalIDNeedCheck = 0;
     List<int> idNeedCheckOnCake = new();
     public void CheckOtherIDOfCake() {
         if (idNeedCheckOnCake.Count > 0)
         {
             if (CheckHaveCakeID(idNeedCheckOnCake[0]))
             {
-                //Debug.Log("==================================================================================================");
-                //Debug.Log("CHECK ID: "+ currentCakeCheck.pieceCakeID[cakeIDIndex] + " plate: "+ currentCakeCheck.currentPlate);
                 int idNeedCheck = idNeedCheckOnCake[0];
                 idNeedCheckOnCake.RemoveAt(0);
                 table.ClearMapPlate(idNeedCheck);
@@ -427,7 +414,6 @@ public class CakeManager : MonoBehaviour
             {
                 UIManager.instance.TurnBlock(false);
                 UIManager.instance.ShowPanelLevelComplete(false);
-                UIManager.instance.panelTotal.OutTimeEvent();
                 table.AnimLooseGameOut();
             });
         }  
@@ -438,6 +424,11 @@ public class CakeManager : MonoBehaviour
     public Mesh GetNewUnlockedCakePieceMesh()
     {
         return ProfileManager.Instance.dataConfig.cakeDataConfig.GetCakePieceMesh(justUnlockedCake);
+    }
+
+    public Material GetNewUnlockedCakePieceMaterial()
+    {
+        return ProfileManager.Instance.dataConfig.cakeDataConfig.GetCakePieceMaterial(justUnlockedCake);
     }
 
     public void SetJustUnlockedCake(int cakeID) { justUnlockedCake = cakeID; }
@@ -630,13 +621,6 @@ public class CakeManager : MonoBehaviour
         table.ResetPharse();
     }
 
-    public void ReInitData(int cakeID) {
-        for (int i = 0; i < cakesWait.Count; i++)
-        {
-            cakesWait[i].ReInitData(cakeID);
-        }
-        table.ReInitCake(cakeID);
-    }
     #region STREAK
     void ResetStreak()
     {
@@ -648,14 +632,7 @@ public class CakeManager : MonoBehaviour
         currentStreak++;
         if (currentStreak > 1)
         {
-            streakEffect = GameManager.Instance.objectPooling.GetStreakEffect();
-            if (cakeStreak != null)
-                streakEffect.SettingMaterial(cakeStreak.pieceCakeID[0]);
-            else streakEffect.SettingMaterial(0);
-
-            streakEffect.ChangeText(currentStreak.ToString());
-            streakEffect.transform.position = Camera.main.WorldToScreenPoint(cakeStreak.transform.position) + vectorOffsetStreak;
-            streakEffect.gameObject.SetActive(true);
+           
         }
     }
     #endregion

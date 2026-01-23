@@ -1,9 +1,5 @@
 using DG.Tweening;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.Events;
 
 public class ItemManager : MonoBehaviour
@@ -13,7 +9,6 @@ public class ItemManager : MonoBehaviour
     [SerializeField] Transform pointBombIn;
     [SerializeField] Transform pointFillUpTarget;
 
-    PanelUsingItem panelUsingItem;
     Transform itemTrsSpawned = null;
 
     [SerializeField] Transform objHammer;
@@ -67,16 +62,12 @@ public class ItemManager : MonoBehaviour
     }
 
     void UsingItemWithPanel(ItemType itemType) {
-        if (panelUsingItem == null) { panelUsingItem = UIManager.instance.GetPanel(UIPanelType.PanelUsingItem).GetComponent<PanelUsingItem>(); }
         GameManager.Instance.cameraManager.UsingItemMode();
         GameManager.Instance.lightManager.UsingItemMode();
-        panelUsingItem.OnUseItem(itemType);
     }
 
     public void UsingItemDone() {
         isUsingItem = false;
-        if (panelUsingItem == null) { panelUsingItem = UIManager.instance.GetPanel(UIPanelType.PanelUsingItem).GetComponent<PanelUsingItem>(); }
-        panelUsingItem.UsingItemDone();
         if (itemTrsSpawned != null)
         {
             itemTrsSpawned.DOMove(itemTrs.position, 1f).SetEase(Ease.InCubic);
@@ -89,15 +80,12 @@ public class ItemManager : MonoBehaviour
         objHammer.DOMove(cake.transform.position + vectorHammerOffset, .25f).SetEase(Ease.OutQuint).OnComplete(()=> {
             hammerAnim.Play("HammerBam");
             DOVirtual.DelayedCall(0.6f, ()=> {
-                Transform trsSmoke = GameManager.Instance.objectPooling.GetSmokeEffect();
-                trsSmoke.transform.position = cake.transform.position + vectorHammerOffset;
-                trsSmoke.gameObject.SetActive(true);
                 GameManager.Instance.cameraManager.ShakeCamera(.2f);
                 DOVirtual.DelayedCall(.3f, () =>
                 {
                     //trsSmoke.gameObject.SetActive(false);
                     UsingItemDone();
-                    panelUsingItem.UsingItemDone();
+                    // panelUsingItem.UsingItemDone();
                     objHammer.DOMove(itemTrs.position, .25f);
                     actionCallBack();
                 });
@@ -107,7 +95,7 @@ public class ItemManager : MonoBehaviour
     }
 
     public void OnUsingItem() {
-        panelUsingItem.OnUsingItem();
+        // panelUsingItem.OnUsingItem();
     }
 
     public Vector3 GetPointFillUp()
@@ -120,14 +108,7 @@ public class ItemManager : MonoBehaviour
         objHammer.DOMove(cake.transform.position + vectorHammerOffset, .25f).SetEase(Ease.OutQuint).OnComplete(() => {
             hammerAnim.Play("HammerBam");
             DOVirtual.DelayedCall(0.6f, () => {
-                Transform trsSmoke = GameManager.Instance.objectPooling.GetSmokeEffect();
-                trsSmoke.transform.position = cake.transform.position + vectorHammerOffset;
-                trsSmoke.gameObject.SetActive(true);
                 GameManager.Instance.cameraManager.ShakeCamera(.2f);
-                DOVirtual.DelayedCall(.15f, () =>
-                {
-                    trsSmoke.gameObject.SetActive(false);
-                });
                 if (lastItem)
                 {
                     DoLastMove(actionCallBack);
@@ -143,7 +124,7 @@ public class ItemManager : MonoBehaviour
     public void DoLastMove(UnityAction actionCallBack)
     {
         UsingItemDone();
-        panelUsingItem.UsingItemDone();
+        // panelUsingItem.UsingItemDone();
         objHammer.DOMove(itemTrs.position, .25f).OnComplete(() => {
             actionCallBack();
         });

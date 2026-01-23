@@ -1,18 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public enum PackType
-{
-    None,
-    Pack1,
-    Pack2,
-    Pack3
-}
-
 public enum ItemType
 {
-    NoAds = -2,
     Cake = -1,
     None = 0,
     Trophy = 1,

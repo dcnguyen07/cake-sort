@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -74,123 +72,6 @@ public class ObjectPooling : MonoBehaviour
         return newEffect;
     }
 
-    public Transform trsPanel;
-    public List<ExpEffect> expEffects = new List<ExpEffect>();
-    public ExpEffect expEffect;
-    
-
-    public ExpEffect GetExpEffect()
-    {
-        for (int i = expEffects.Count - 1; i >= 0; i--)
-        {
-            if (expEffects[i] == null)
-            {
-                expEffects.RemoveAt(i);
-                continue;
-            }
-            if (!expEffects[i].gameObject.activeSelf) return expEffects[i];
-        }
-        ExpEffect newEffect = Instantiate(expEffect, trsPanel);
-        expEffects.Add(newEffect);
-        return newEffect;
-    }
-
-    public List<EffectMove> expEffectMoves = new List<EffectMove>();
-    public EffectMove expEffectMove;
-
-
-    public EffectMove GetEffectMove()
-    {
-        for (int i = expEffectMoves.Count - 1; i >= 0; i--)
-        {
-            if (expEffectMoves[i] == null)
-            {
-                expEffectMoves.RemoveAt(i);
-                continue;
-            }
-            if (!expEffectMoves[i].gameObject.activeSelf) return expEffectMoves[i];
-        }
-        EffectMove newEffect = Instantiate(expEffectMove, trsPanel);
-        expEffectMoves.Add(newEffect);
-        return newEffect;
-    }
-
-    public List<EffectAdd> effectAddExps = new List<EffectAdd>();
-    public EffectAdd effectAddExp;
-
-
-    public EffectAdd GetEffectExp()
-    {
-        for (int i = effectAddExps.Count - 1; i >= 0; i--)
-        {
-            if (effectAddExps[i] == null)
-            {
-                effectAddExps.RemoveAt(i);
-                continue;
-            }
-            if (!effectAddExps[i].gameObject.activeSelf) return effectAddExps[i];
-        }
-        EffectAdd newEffect = Instantiate(effectAddExp, trsPanel);
-        effectAddExps.Add(newEffect);
-        return newEffect;
-    }
-
-    public List<CoinEffect> effectCoins = new List<CoinEffect>();
-    public CoinEffect effectCoin;
-
-
-    public CoinEffect GetCoinEffect()
-    {
-        for (int i = effectCoins.Count - 1; i >= 0; i--)
-        {
-            if (effectCoins[i] == null)
-            {
-                effectCoins.RemoveAt(i);
-                continue;
-            }
-            if (!effectCoins[i].gameObject.activeSelf) return effectCoins[i];
-        }
-        CoinEffect newEffect = Instantiate(effectCoin, trsPanel);
-        effectCoins.Add(newEffect);
-        return newEffect;
-    }
-
-    public List<StreakEffect> streakEffects = new List<StreakEffect>();
-    public StreakEffect streakEffect;
-    public StreakEffect GetStreakEffect()
-    {
-        for (int i = streakEffects.Count - 1; i >= 0; i--)
-        {
-            if (streakEffects[i] == null)
-            {
-                streakEffects.RemoveAt(i);
-                continue;
-            }
-            if (!streakEffects[i].gameObject.activeSelf) return streakEffects[i];
-        }
-        StreakEffect newEffect = Instantiate(streakEffect, trsPanel);
-        streakEffects.Add(newEffect);
-        return newEffect;
-    }
-
-    public List<Transform> smokeEffects = new List<Transform>();
-    public Transform smokeEffect;
-    public Transform GetSmokeEffect()
-    {
-        for (int i = smokeEffects.Count - 1; i >= 0; i--)
-        {
-            if (smokeEffects[i] == null)
-            {
-                smokeEffects.RemoveAt(i);
-                continue;
-            }
-            if (!smokeEffects[i].gameObject.activeSelf) return smokeEffects[i];
-        }
-        Transform newSmokeEffect = Instantiate(smokeEffect, transform);
-        smokeEffects.Add(newSmokeEffect);
-        return newSmokeEffect;
-    }
-
     public List<Transform> smokeEffectsDrops = new List<Transform>();
     public Transform smokeEffectsDrop;
     public Transform GetSmokeEffectDrop()
@@ -208,23 +89,4 @@ public class ObjectPooling : MonoBehaviour
         smokeEffectsDrops.Add(newSmokeEffect);
         return newSmokeEffect;
     }
-
-    public List<Transform> fillUpEffects = new List<Transform>();
-    public Transform fillUpEffect;
-    public Transform GetFillUpEffect()
-    {
-        for (int i = fillUpEffects.Count - 1; i >= 0; i--)
-        {
-            if (fillUpEffects[i] == null)
-            {
-                fillUpEffects.RemoveAt(i);
-                continue;
-            }
-            if (!fillUpEffects[i].gameObject.activeSelf) return fillUpEffects[i];
-        }
-        Transform newSmokeEffect = Instantiate(fillUpEffect, transform);
-        fillUpEffects.Add(newSmokeEffect);
-        return newSmokeEffect;
-    }
-
 }

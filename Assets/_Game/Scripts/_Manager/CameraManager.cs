@@ -71,25 +71,6 @@ public class CameraManager : MonoBehaviour
     }
     ShowRoom showRoomTemp;
     ShowRoom currentShowRoom;
-    public void ShowARoom(int showRoomIndex) {
-        if (showRooms.TryGetValue(showRoomIndex, out showRoomTemp))
-        {
-            showRoomTemp = showRooms[showRoomIndex];
-        }
-        else
-        {
-            showRoomTemp = (Resources.Load("ShowRoom/ShowRoom_" + showRoomIndex) as GameObject).GetComponent<ShowRoom>();
-            if (showRoomTemp != null)
-            {
-                ShowRoom newShowRoom = Instantiate(showRoomTemp, showRoomParents);
-                showRooms.Add(showRoomIndex, newShowRoom);
-                currentShowRoom = newShowRoom;
-            }
-        }
-        showRoomTemp.gameObject.SetActive(true);
-        currentShowRoom.ShowCamera();
-        CloseMainCamera();
-    }
     public void CloseMainCamera() {
         mainCamera.gameObject.SetActive(false);
     }
