@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 using DG.Tweening;
 
 public class CameraManager : MonoBehaviour
@@ -15,9 +12,6 @@ public class CameraManager : MonoBehaviour
     [SerializeField] Transform showRoomParents;
     [SerializeField] float cameraSizeUsingItem;
     [SerializeField] CameraShaker cameraShaker;
-
-    Dictionary<int, ShowRoom> showRooms = new Dictionary<int, ShowRoom>();
-
     float currentSize;
     float widthScene;
     float heightScene;
@@ -69,8 +63,6 @@ public class CameraManager : MonoBehaviour
             mainCamera.orthographicSize = value;
         }).SetEase(Ease.InOutSine);
     }
-    ShowRoom showRoomTemp;
-    ShowRoom currentShowRoom;
     public void CloseMainCamera() {
         mainCamera.gameObject.SetActive(false);
     }
@@ -78,22 +70,6 @@ public class CameraManager : MonoBehaviour
     public void OpenMainCamera()
     {
         mainCamera.gameObject.SetActive(true);
-        if (currentShowRoom != null) currentShowRoom.CloseCamera();
-    }
-
-    public void ShowRoomCamera(bool show)
-    {
-        if (currentShowRoom != null)
-        {
-            if(show)
-            {
-                currentShowRoom.ShowCamera();
-            }
-            else
-            {
-                currentShowRoom.CloseCamera();
-            }
-        }
     }
 
     public void ShakeCamera(float duration) {

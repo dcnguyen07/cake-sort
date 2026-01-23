@@ -439,7 +439,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1842485385}
-  - {fileID: 1183081023}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &445472837
@@ -457,28 +456,6 @@ MonoBehaviour:
   groupCakeParents: {fileID: 1842485385}
   groupCakes: []
   groupCakePref: {fileID: 1524842705077448868, guid: 2f2ecc08ee355664d87f4bd6b90b4cdc, type: 3}
-  trsEffect: {fileID: 1183081023}
-  cakeDoneEffects: []
-  cakeDoneEffect: {fileID: 3951564413595435855, guid: b8f8ec1946d4a7b40b5285d4c912d406, type: 3}
-  pieceDoneEffects: []
-  piecesEffect: {fileID: 7335881209472704915, guid: 48357a300966df74d8d70bf8fc408d24, type: 3}
-  trsPanel: {fileID: 1842180408}
-  expEffects: []
-  expEffect: {fileID: 332401951, guid: 5fb79efdba7713c4dac4503ab17ad73b, type: 3}
-  expEffectMoves: []
-  expEffectMove: {fileID: 298526862, guid: 6f518d80dc94b0e4b8386625f5c24caa, type: 3}
-  effectAddExps: []
-  effectAddExp: {fileID: 9174844195086467122, guid: f82c425828044434787b6ac5b499d457, type: 3}
-  effectCoins: []
-  effectCoin: {fileID: 2895559290921696373, guid: 9f6396c3fff499b459badedac26ac9ed, type: 3}
-  streakEffects: []
-  streakEffect: {fileID: -358996458366672833, guid: 7f81d7f35fe86d245b9c056779586024, type: 3}
-  smokeEffects: []
-  smokeEffect: {fileID: 400000, guid: 83cd9cc9f9c88824ba18dc59b05ae328, type: 3}
-  smokeEffectsDrops: []
-  smokeEffectsDrop: {fileID: 3531531379073087571, guid: 63cf9fc9bfd2ae646aecde98d1348b17, type: 3}
-  fillUpEffects: []
-  fillUpEffect: {fileID: 5536587569727218034, guid: 0410c0bf92d7ed945a1699dab4ccb75e, type: 3}
 --- !u!1 &448359004
 GameObject:
   m_ObjectHideFlags: 0
@@ -704,22 +681,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCanvas: {fileID: 1260847587}
   isHasPopupOnScene: 0
-  isHasTutorial: 0
-  isHasShopPanel: 0
-  isHasPanelIgnoreTutorial: 0
   myRect: {fileID: 0}
   ingameDebugConsole: {fileID: 0}
   objBlock: {fileID: 448359004}
-  mainCamera: {fileID: 0}
   panelTotal: {fileID: 0}
-  panelGamePlay: {fileID: 0}
   objSpawnPanel: {fileID: 1260847586}
   objEffect: {fileID: 1842180407}
-  objCheat: {fileID: 0}
-  btnCheat: {fileID: 0}
-  btnShowUI: {fileID: 0}
-  btnTurnOffUI: {fileID: 0}
-  isDoneFirstLoadPanel: 0
 --- !u!1 &592049714
 GameObject:
   m_ObjectHideFlags: 0
@@ -856,7 +823,6 @@ MonoBehaviour:
   objectPooling: {fileID: 445472837}
   itemManager: {fileID: 686047085}
   lightManager: {fileID: 230959658}
-  rewardItems: []
 --- !u!4 &676604059
 Transform:
   m_ObjectHideFlags: 0
@@ -1334,7 +1300,6 @@ MonoBehaviour:
   dataConfig:
     rateDataConfig: {fileID: 11400000, guid: 30dcfba3ba80b9845b3f3aec7591cbce, type: 2}
     levelDataConfig: {fileID: 11400000, guid: 434da5e0ab6acd94798cf5db96e2c9ca, type: 2}
-    spriteDataConfig: {fileID: 11400000, guid: 002208d3e2d65b649bba042b49503f42, type: 2}
     cakeDataConfig: {fileID: 11400000, guid: eefcf565fc29691429b628ec59749b28, type: 2}
     itemDataConfig: {fileID: 11400000, guid: f6871f9343fa3794184fe7ae9e550223, type: 2}
     cakeAnimationSetting: {fileID: 11400000, guid: 67116138ce75aae4aa8b12f2170da56f, type: 2}
@@ -1692,37 +1657,6 @@ Transform:
   - {fileID: 1908913122}
   - {fileID: 96028231}
   m_Father: {fileID: 106812252}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1183081022
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1183081023}
-  m_Layer: 0
-  m_Name: GroupEffectParrents
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1183081023
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1183081022}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 445472836}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1242830488
 GameObject:

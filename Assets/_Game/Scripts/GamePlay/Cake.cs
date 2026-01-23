@@ -553,26 +553,12 @@ public class Cake : MonoBehaviour
         myCollider.enabled = false;
         onDrop = true;
         transform.parent = currentPlate.pointStay;
-        tweenAnimations.Add(transform.DOLocalMove(Vector3.zero, .1f).SetEase(Ease.InQuad).OnComplete(()=> {
-            Transform effectDrop = GameManager.Instance.objectPooling.GetSmokeEffectDrop();
-            effectDrop.transform.position = transform.position - vectorOffsetEffectDrop;
-            effectDrop.gameObject.SetActive(true);
-        }));
-        //Debug.Log("last drop: "+ lastDrop);
+        tweenAnimations.Add(transform.DOLocalMove(Vector3.zero, .1f).SetEase(Ease.InQuad));
         DOVirtual.DelayedCall(.1f, () =>
         {
             if (lastDrop)
                 actionCallback();
         });
-
-        //transform.DOScale(Vector3.one * .9f, .25f).OnComplete(() =>
-        //{
-        //    if (lastDrop)
-        //        actionCallback();
-        //    transform.DOScale(Vector3.one * 1.1f, .2f);
-        //    transform.DOScale(Vector3.one, .2f).SetDelay(.2f);
-
-        //});
     }
 
     public void GroupDropFail() {
@@ -586,10 +572,8 @@ public class Cake : MonoBehaviour
 
     public void CheckOnMouse() {
         if (onDrop) return;
-        //Debug.DrawLine(transform.position, transform.position - vectorCheckOffset);
         if (Physics.Linecast(transform.position, transform.position - vectorCheckOffset, out hitInfor))
         {
-            //Debug.Log(hitInfor.collider.gameObject.name);
             Debug.DrawLine(transform.position, hitInfor.point);
             if (hitInfor.collider.gameObject.layer == 6)
             {
@@ -884,11 +868,6 @@ public class Cake : MonoBehaviour
         if (pieces.Count == 0)
             return;
         EventManager.TriggerEvent(EventName.ChangeExp.ToString());
-
-        Transform trsEffect = GameManager.Instance.objectPooling.GetCakeDoneEffect();
-        trsEffect.transform.position = transform.position + vectorOffsetEffect;
-        trsEffect.gameObject.SetActive(true);
-
         tweenAnimations.Add(transform.DOScale(0f, .3f).SetEase(Ease.InQuad));
 
         DOVirtual.DelayedCall(CacheSourse.float05, () => {
